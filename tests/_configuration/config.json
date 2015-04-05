@@ -1,0 +1,11 @@
+{
+    "foobar": {
+        "foo": "foo",
+        "bar": [],
+        "baz": {},
+        "qux": [
+            "qux",
+            "qux"
+        ]
+    }
+}
