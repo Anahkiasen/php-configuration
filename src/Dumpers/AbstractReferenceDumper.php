@@ -1,22 +1,14 @@
 <?php
 
-/*
- * This file is part of Rocketeer
- *
- * (c) Maxime Fabre <ehtnam6@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 namespace Symfony\Component\Config\Definition\Dumpers;
 
-use Rocketeer\Services\Config\TreeBuilder\ClosureNode;
 use SuperClosure\Analyzer\TokenAnalyzer;
 use Symfony\Component\Config\Definition\ArrayNode;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\EnumNode;
 use Symfony\Component\Config\Definition\NodeInterface;
 use Symfony\Component\Config\Definition\PrototypedArrayNode;
+use Symfony\Component\Config\Definition\TreeBuilder\ClosureNode;
 
 abstract class AbstractReferenceDumper
 {
@@ -52,7 +44,7 @@ abstract class AbstractReferenceDumper
 
     /**
      * @param ConfigurationInterface $configuration
-     * @param string null            $namespace
+     * @param                        string null            $namespace
      *
      * @return string
      */

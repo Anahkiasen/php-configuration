@@ -1,13 +1,5 @@
 <?php
 
-/*
- * This file is part of Rocketeer
- *
- * (c) Maxime Fabre <ehtnam6@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 namespace Symfony\Component\Config\Definition\Loaders;
 
 use Symfony\Component\Config\Loader\FileLoader;
