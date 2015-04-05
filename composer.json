@@ -1,5 +1,19 @@
 {
   "name": "anahkiasen/php-reference-dumper",
+  "description": "PHP configuration reference dumper/loader for symfony/config",
+  "license": "MIT",
+  "keywords": [
+    "config",
+    "php",
+    "dumper"
+  ],
+  "authors": [
+    {
+      "name": "Maxime Fabre",
+      "email": "ehtnam6@gmail.com",
+      "homepage": "http://autopergamene.eu/en"
+    }
+  ],
   "require": {
     "symfony/config": "~2.6",
     "jeremeamia/superclosure": "~2.1"
