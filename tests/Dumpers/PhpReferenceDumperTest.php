@@ -10,10 +10,10 @@ class PhpReferenceDumperTest extends PhpConfigurationTestCase
     {
         $reference = new DummyConfigurationDefinition();
 
-        $dumper = new PhpReferenceDumper();
-        $dumped = $dumper->dump($reference);
+        $dumper  = new PhpReferenceDumper();
+        $dumped  = $dumper->dump($reference);
         $matcher = $this->configuration.'/config.php';
 
-        $this->assertEquals($dumped, file_get_contents($this->configuration.'/config.php'));
+        $this->assertEquals($dumped, file_get_contents($matcher));
     }
 }

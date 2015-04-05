@@ -1,5 +1,4 @@
 <?php
-
 namespace Symfony\Component\Config\Definition\TreeBuilder;
 
 use Symfony\Component\Config\Definition\Builder\VariableNodeDefinition;

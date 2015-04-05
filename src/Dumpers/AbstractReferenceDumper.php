@@ -1,5 +1,4 @@
 <?php
-
 namespace Symfony\Component\Config\Definition\Dumpers;
 
 use SuperClosure\Analyzer\TokenAnalyzer;
@@ -44,7 +43,7 @@ abstract class AbstractReferenceDumper
 
     /**
      * @param ConfigurationInterface $configuration
-     * @param                        string null            $namespace
+     * @param string null            $namespace
      *
      * @return string
      */

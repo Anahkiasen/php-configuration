@@ -17,7 +17,7 @@ class PhpLoaderTest extends PhpConfigurationTestCase
     protected $loader;
 
     /**
-     * Setup the tests
+     * Setup the tests.
      */
     protected function setUp()
     {

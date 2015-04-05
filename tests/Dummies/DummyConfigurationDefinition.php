@@ -21,7 +21,7 @@ class DummyConfigurationDefinition implements ConfigurationInterface
             ->info('The main configuration of your application')
             ->children()
                 ->scalarNode('foo')
-                ->info("foo")
+                ->info('foo')
                 ->defaultValue('foo')
                 ->isRequired()
                 ->cannotBeEmpty()

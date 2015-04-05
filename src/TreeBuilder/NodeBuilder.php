@@ -1,5 +1,4 @@
 <?php
-
 namespace Symfony\Component\Config\Definition\TreeBuilder;
 
 class NodeBuilder extends \Symfony\Component\Config\Definition\Builder\NodeBuilder

@@ -11,7 +11,7 @@ abstract class PhpConfigurationTestCase extends PHPUnit_Framework_TestCase
     protected $configuration;
 
     /**
-     * Set up the tests
+     * Set up the tests.
      */
     protected function setUp()
     {
