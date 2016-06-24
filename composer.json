@@ -15,12 +15,12 @@
     }
   ],
   "require": {
-    "jeremeamia/superclosure": "^2.1",
-    "symfony/config": "^2.7"
+    "jeremeamia/superclosure": "^2.2",
+    "symfony/config": "^2.8|^3.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^4.7",
-    "symfony/var-dumper": "^2.7"
+    "phpunit/phpunit": "^5.4",
+    "symfony/var-dumper": "^2.8|^3.0"
   },
   "autoload": {
     "psr-4": {
@@ -31,5 +31,8 @@
     "psr-4": {
       "Symfony\\Component\\Config\\Definition\\": "tests"
     }
+  },
+  "config": {
+    "sort-packages": true
   }
 }
