@@ -1,4 +1,5 @@
 <?php
+
 namespace Symfony\Component\Config\Definition\Loaders;
 
 use Symfony\Component\Config\Definition\TestCases\PhpConfigurationTestCase;
@@ -7,12 +8,12 @@ use Symfony\Component\Config\FileLocator;
 class PhpLoaderTest extends PhpConfigurationTestCase
 {
     /**
-     * @type FileLocator
+     * @var FileLocator
      */
     protected $locator;
 
     /**
-     * @type PhpLoader
+     * @var PhpLoader
      */
     protected $loader;
 
@@ -24,7 +25,7 @@ class PhpLoaderTest extends PhpConfigurationTestCase
         parent::setUp();
 
         $this->locator = new FileLocator($this->configuration);
-        $this->loader  = new PhpLoader($this->locator);
+        $this->loader = new PhpLoader($this->locator);
     }
 
     public function testCanLoadPhpFile()

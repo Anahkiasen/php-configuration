@@ -1,1 +1,3 @@
-<?php return ['foo' => 'bar'];
+<?php
+
+return ['foo' => 'bar'];

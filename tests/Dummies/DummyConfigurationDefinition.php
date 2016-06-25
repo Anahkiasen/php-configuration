@@ -1,4 +1,5 @@
 <?php
+
 namespace Symfony\Component\Config\Definition\Dummies;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -15,7 +16,7 @@ class DummyConfigurationDefinition implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $builder = new TreeBuilder();
-        $root    = $builder->root('foobar', 'array', new NodeBuilder());
+        $root = $builder->root('foobar', 'array', new NodeBuilder());
 
         $root
             ->info('The main configuration of your application')
@@ -34,7 +35,9 @@ class DummyConfigurationDefinition implements ConfigurationInterface
             ->closureNode('baz')
                 ->info('baz')
                 ->defaultValue(function ($foobar) {
-                    return $foobar + 3;
+                    foreach (['foo', 'bar'] as $foo) {
+                        return $foobar + $foo;
+                    }
                 })
             ->end()
             ->arrayNode('qux')

@@ -1,12 +1,11 @@
 <?php
 
 return [
-
     // The main configuration of your application
     'foobar' => [
 
         // foo
-        'foo' =>             'foo', // Required
+        'foo' => 'foo', // Required
 
         // bar
         // bar
@@ -17,9 +16,11 @@ return [
         ],
 
         // baz
-        'baz' =>             function ($foobar) {
-                             return $foobar + 3;
-                         },
+        'baz' => function ($foobar) {
+            foreach (['foo', 'bar'] as $foo) {
+                return $foobar + $foo;
+            }
+        },
 
         // qux
         'qux' => [

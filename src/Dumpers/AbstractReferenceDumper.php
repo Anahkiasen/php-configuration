@@ -1,4 +1,5 @@
 <?php
+
 namespace Symfony\Component\Config\Definition\Dumpers;
 
 use SuperClosure\Analyzer\TokenAnalyzer;
@@ -12,32 +13,32 @@ use Symfony\Component\Config\Definition\TreeBuilder\ClosureNode;
 abstract class AbstractReferenceDumper
 {
     /**
-     * @type array
+     * @var array
      */
     protected $comments = [];
 
     /**
-     * @type string
+     * @var string
      */
     protected $default;
 
     /**
-     * @type array
+     * @var array
      */
     protected $defaultArray;
 
     /**
-     * @type string|string[]
+     * @var string|string[]
      */
     protected $example;
 
     /**
-     * @type bool
+     * @var bool
      */
     protected $isCoreNode;
 
     /**
-     * @type string
+     * @var string
      */
     protected $reference;
 
@@ -63,7 +64,7 @@ abstract class AbstractReferenceDumper
         $this->reference = '';
         $this->writeNode($node, 1, true, $namespace);
 
-        $reference       = $this->reference;
+        $reference = $this->reference;
         $this->reference = null;
 
         return $reference;
@@ -76,12 +77,12 @@ abstract class AbstractReferenceDumper
     private function writeNode(NodeInterface $node, $depth = 0)
     {
         // Reinitialize fields
-        $this->comments     = [];
-        $this->default      = '';
+        $this->comments = [];
+        $this->default = '';
         $this->defaultArray = null;
-        $children           = null;
-        $this->example      = $node->getExample();
-        $this->isCoreNode   = $node->getParent() && $node->getParent()->getName() === 'rocketeer';
+        $children = null;
+        $this->example = $node->getExample();
+        $this->isCoreNode = $node->getParent() && $node->getParent()->getName() === 'rocketeer';
 
         if ($node instanceof ArrayNode) {
             $children = $node->getChildren();
@@ -96,7 +97,7 @@ abstract class AbstractReferenceDumper
                 // check for attribute as key
                 if ($key = $node->getKeyAttribute()) {
                     $keyNodeClass = 'Symfony\Component\Config\Definition\\'.($prototype instanceof ArrayNode ? 'ArrayNode' : 'ScalarNode');
-                    $keyNode      = new $keyNodeClass($key, $node);
+                    $keyNode = new $keyNodeClass($key, $node);
                     $keyNode->setInfo('Prototype');
 
                     // add children
@@ -116,11 +117,14 @@ abstract class AbstractReferenceDumper
             }
         } elseif ($node instanceof EnumNode) {
             $this->comments[] = 'One of '.implode(', ', array_map('json_encode', $node->getValues()));
-            $this->default    = $node->getDefaultValue();
+            $this->default = $node->getDefaultValue();
         } elseif ($node instanceof ClosureNode) {
             $this->default = $node->getDefaultValue();
-            $analyzer      = new TokenAnalyzer();
+            $analyzer = new TokenAnalyzer();
             $this->default = $analyzer->analyze($this->default)['code'];
+            $this->default = preg_replace_callback('/(\n +)(.+)/', function ($line) use ($depth) {
+                return substr($line[1], 0, $depth * -4).$line[2];
+            }, $this->default);
         } else {
             $this->default = null;
 
@@ -149,13 +153,12 @@ abstract class AbstractReferenceDumper
 
         // Format comments and values
         $this->comments = count($this->comments) ? '// '.implode(', ', $this->comments) : '';
-        $name           = $this->serializeValue($node->getName()).' => ';
-        $format         = '%-20s %s %s';
+        $name = $this->serializeValue($node->getName()).' => ';
+        $format = '%s%s %s';
 
         if ($node instanceof ArrayNode) {
             $name .= '[';
             $this->default = (!$this->example && !$children && !$this->defaultArray) ? '],' : null;
-            $format        = '%s%s %s';
         } elseif ($node instanceof ClosureNode) {
             $this->default .= ',';
         } else {
@@ -165,9 +168,7 @@ abstract class AbstractReferenceDumper
 
         // Output informations
         $this->outputInformations($node, $depth);
-
-        $this->default = str_replace("\n", sprintf("\n%".($depth * 4).'s ', ' '), $this->default);
-        $text          = rtrim(sprintf($format, $name, $this->default, $this->comments), ' ');
+        $text = rtrim(sprintf($format, $name, $this->default, $this->comments), ' ');
 
         // Output main value
         $this->writeLine($text, $depth * 4);
@@ -191,7 +192,7 @@ abstract class AbstractReferenceDumper
     {
         // Else dump each value on its own line
         $isIndexed = array_values($array) === $array;
-        $method    = $comments ? 'writeComment' : 'writeLine';
+        $method = $comments ? 'writeComment' : 'writeLine';
 
         foreach ($array as $key => $value) {
             if (is_array($value)) {
@@ -241,7 +242,7 @@ abstract class AbstractReferenceDumper
     private function outputDefaults($depth)
     {
         if ($this->defaultArray) {
-            $message    = count($this->defaultArray) > 1 ? 'Defaults' : 'Default';
+            $message = count($this->defaultArray) > 1 ? 'Defaults' : 'Default';
             $childDepth = $depth * 4 + 4;
 
             $this->writeComment($message.':', $childDepth);
@@ -312,7 +313,7 @@ abstract class AbstractReferenceDumper
         $indent = strlen($text) + $indent;
         $format = '%'.$indent.'s';
 
-        $this->reference .= sprintf($format, $text)."\n";
+        $this->reference .=  sprintf($format, $text)."\n";
     }
 
     /**

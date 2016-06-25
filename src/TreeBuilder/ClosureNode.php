@@ -1,4 +1,5 @@
 <?php
+
 namespace Symfony\Component\Config\Definition\TreeBuilder;
 
 use Closure;

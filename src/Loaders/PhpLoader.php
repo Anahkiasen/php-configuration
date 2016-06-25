@@ -1,4 +1,5 @@
 <?php
+
 namespace Symfony\Component\Config\Definition\Loaders;
 
 use Symfony\Component\Config\Loader\FileLoader;

@@ -1,4 +1,5 @@
 <?php
+
 namespace Symfony\Component\Config\Definition\Dumpers;
 
 use Symfony\Component\Config\Definition\NodeInterface;

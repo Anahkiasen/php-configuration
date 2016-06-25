@@ -1,4 +1,5 @@
 <?php
+
 namespace Symfony\Component\Config\Definition\Dumpers;
 
 use Symfony\Component\Config\Definition\Dummies\DummyConfigurationDefinition;
@@ -10,8 +11,8 @@ class JsonReferenceDumperTest extends PhpConfigurationTestCase
     {
         $reference = new DummyConfigurationDefinition();
 
-        $dumper  = new JsonReferenceDumper();
-        $dumped  = $dumper->dump($reference);
+        $dumper = new JsonReferenceDumper();
+        $dumped = $dumper->dump($reference);
         $matcher = $this->configuration.'/config.json';
 
         $this->assertEquals($dumped, file_get_contents($matcher));

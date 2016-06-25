@@ -1,4 +1,5 @@
 <?php
+
 namespace Symfony\Component\Config\Definition\TestCases;
 
 use PHPUnit_Framework_TestCase;
@@ -6,7 +7,7 @@ use PHPUnit_Framework_TestCase;
 abstract class PhpConfigurationTestCase extends PHPUnit_Framework_TestCase
 {
     /**
-     * @type string
+     * @var string
      */
     protected $configuration;
 

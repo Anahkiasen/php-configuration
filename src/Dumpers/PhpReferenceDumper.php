@@ -1,4 +1,5 @@
 <?php
+
 namespace Symfony\Component\Config\Definition\Dumpers;
 
 use Symfony\Component\Config\Definition\NodeInterface;
@@ -18,7 +19,7 @@ class PhpReferenceDumper extends AbstractReferenceDumper
      */
     public function dumpNode(NodeInterface $node, $namespace = null)
     {
-        return '<?php'.PHP_EOL.PHP_EOL.'return ['.PHP_EOL.parent::dumpNode($node, $namespace).PHP_EOL.'];';
+        return '<?php'.PHP_EOL.PHP_EOL.'return ['.parent::dumpNode($node, $namespace).PHP_EOL.'];'.PHP_EOL;
     }
 
     /**
