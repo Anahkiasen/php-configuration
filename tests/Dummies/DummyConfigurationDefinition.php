@@ -44,6 +44,11 @@ class DummyConfigurationDefinition implements ConfigurationInterface
                 ->info('qux')
                 ->defaultValue(['qux', 'qux'])
                 ->prototype('scalar')->end()
+            ->end()
+            ->arrayNode('ter')
+                ->info('ter')
+                ->useAttributeAsKey('name')
+                ->prototype('array')->end()
             ->end();
 
         return $builder;

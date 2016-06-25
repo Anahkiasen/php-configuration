@@ -2,7 +2,7 @@
 
 namespace Symfony\Component\Config\Definition\Dumpers;
 
-use Symfony\Component\Config\Definition\NodeInterface;
+use Symfony\Component\Config\Definition\BaseNode;
 
 /**
  * Dumps a Symfony reference in PHP format.
@@ -12,14 +12,13 @@ use Symfony\Component\Config\Definition\NodeInterface;
 class PhpReferenceDumper extends AbstractReferenceDumper
 {
     /**
-     * @param NodeInterface $node
-     * @param string|null   $namespace
+     * @param BaseNode $node
      *
      * @return string
      */
-    public function dumpNode(NodeInterface $node, $namespace = null)
+    public function dumpNode(BaseNode $node)
     {
-        return '<?php'.PHP_EOL.PHP_EOL.'return ['.parent::dumpNode($node, $namespace).PHP_EOL.'];'.PHP_EOL;
+        return '<?php'.PHP_EOL.PHP_EOL.'return ['.parent::dumpNode($node).PHP_EOL.'];'.PHP_EOL;
     }
 
     /**

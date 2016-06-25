@@ -15,6 +15,6 @@ class JsonReferenceDumperTest extends PhpConfigurationTestCase
         $dumped = $dumper->dump($reference);
         $matcher = $this->configuration.'/config.json';
 
-        $this->assertEquals($dumped, file_get_contents($matcher));
+        $this->assertEquals(file_get_contents($matcher), $dumped);
     }
 }

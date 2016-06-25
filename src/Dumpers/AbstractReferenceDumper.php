@@ -4,10 +4,11 @@ namespace Symfony\Component\Config\Definition\Dumpers;
 
 use SuperClosure\Analyzer\TokenAnalyzer;
 use Symfony\Component\Config\Definition\ArrayNode;
+use Symfony\Component\Config\Definition\BaseNode;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\EnumNode;
-use Symfony\Component\Config\Definition\NodeInterface;
 use Symfony\Component\Config\Definition\PrototypedArrayNode;
+use Symfony\Component\Config\Definition\ScalarNode;
 use Symfony\Component\Config\Definition\TreeBuilder\ClosureNode;
 
 abstract class AbstractReferenceDumper
@@ -44,25 +45,23 @@ abstract class AbstractReferenceDumper
 
     /**
      * @param ConfigurationInterface $configuration
-     * @param string null            $namespace
      *
      * @return string
      */
-    public function dump(ConfigurationInterface $configuration, $namespace = null)
+    public function dump(ConfigurationInterface $configuration)
     {
-        return $this->dumpNode($configuration->getConfigTreeBuilder()->buildTree(), $namespace);
+        return $this->dumpNode($configuration->getConfigTreeBuilder()->buildTree());
     }
 
     /**
-     * @param NodeInterface $node
-     * @param string|null   $namespace
+     * @param BaseNode $node
      *
      * @return string
      */
-    public function dumpNode(NodeInterface $node, $namespace = null)
+    public function dumpNode(BaseNode $node)
     {
         $this->reference = '';
-        $this->writeNode($node, 1, true, $namespace);
+        $this->writeNode($node, 1);
 
         $reference = $this->reference;
         $this->reference = null;
@@ -70,11 +69,16 @@ abstract class AbstractReferenceDumper
         return $reference;
     }
 
+    //////////////////////////////////////////////////////////////////////
+    ////////////////////////////// OUTPUT ////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
+
     /**
-     * @param NodeInterface $node
-     * @param int           $depth
+     * @param BaseNode $node
+     * @param int      $depth
+     * @param bool     $asComment
      */
-    private function writeNode(NodeInterface $node, $depth = 0)
+    private function writeNode(BaseNode $node, $depth = 0, $asComment = false)
     {
         // Reinitialize fields
         $this->comments = [];
@@ -94,16 +98,18 @@ abstract class AbstractReferenceDumper
                     $children = $prototype->getChildren();
                 }
 
-                // check for attribute as key
+                // Check for attribute as key
                 if ($key = $node->getKeyAttribute()) {
+                    /* @var ArrayNode|ScalarNode $keyNode */
                     $keyNodeClass = 'Symfony\Component\Config\Definition\\'.($prototype instanceof ArrayNode ? 'ArrayNode' : 'ScalarNode');
                     $keyNode = new $keyNodeClass($key, $node);
                     $keyNode->setInfo('Prototype');
 
-                    // add children
+                    // Add children
                     foreach ($children as $childNode) {
                         $keyNode->addChild($childNode);
                     }
+
                     $children = [$key => $keyNode];
                 }
 
@@ -154,7 +160,7 @@ abstract class AbstractReferenceDumper
         // Format comments and values
         $this->comments = count($this->comments) ? '// '.implode(', ', $this->comments) : '';
         $name = $this->serializeValue($node->getName()).' => ';
-        $format = '%s%s %s';
+        $format = $asComment ? '// %s%s %s' : '%s%s %s';
 
         if ($node instanceof ArrayNode) {
             $name .= '[';
@@ -216,7 +222,7 @@ abstract class AbstractReferenceDumper
     }
 
     //////////////////////////////////////////////////////////////////////
-    ////////////////////////////// OUTPUT ////////////////////////////////
+    ///////////////////////////// OUTPUTTERS /////////////////////////////
     //////////////////////////////////////////////////////////////////////
 
     /**
@@ -253,14 +259,19 @@ abstract class AbstractReferenceDumper
     /**
      * Output the children of the node.
      *
-     * @param array $children
-     * @param int   $depth
+     * @param BaseNode[] $children
+     * @param int        $depth
      */
     private function outputChildren($children, $depth)
     {
         if ($children) {
             foreach ($children as $childNode) {
-                $this->writeNode($childNode, $depth + 1);
+                if ($childNode->getInfo() === 'Prototype') {
+                    $childNode->setInfo('');
+                    $this->writeNode($childNode, $depth + 1, true);
+                } else {
+                    $this->writeNode($childNode, $depth + 1);
+                }
             }
         }
 
@@ -270,10 +281,10 @@ abstract class AbstractReferenceDumper
     }
 
     /**
-     * @param NodeInterface $node
-     * @param int           $depth
+     * @param BaseNode $node
+     * @param int      $depth
      */
-    private function outputInformations(NodeInterface $node, $depth)
+    private function outputInformations(BaseNode $node, $depth)
     {
         if ($info = $node->getInfo()) {
             $this->writeLine('');
@@ -313,7 +324,7 @@ abstract class AbstractReferenceDumper
         $indent = strlen($text) + $indent;
         $format = '%'.$indent.'s';
 
-        $this->reference .=  sprintf($format, $text)."\n";
+        $this->reference .= sprintf($format, $text)."\n";
     }
 
     /**

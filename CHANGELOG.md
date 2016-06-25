@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.4 - 2016-06-25
+### Changed
+- Comment out prototype values by default
+
 ## 1.0.3 - 2016-06-25
 ### Fixed
 - Property indent values and closures
