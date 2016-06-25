@@ -14,13 +14,15 @@ return [
             // 'bar',
             // 'bar',
         ],
+        'closures' => [
 
-        // baz
-        'baz' => function ($foobar) {
-            foreach (['foo', 'bar'] as $foo) {
-                return $foobar + $foo;
-            }
-        },
+            // baz
+            'baz' => function ($foobar) {
+                foreach (['foo', 'bar'] as $foo) {
+                    return $foobar + $foo;
+                }
+            },
+        ],
 
         // qux
         'qux' => [
@@ -32,6 +34,18 @@ return [
         // ter
         'ter' => [
             // 'name' => [],
+        ],
+
+        // qua
+        'qua' => [
+            'name' => [
+                'foo' => 'bar',
+            ],
+        ],
+
+        // quin
+        'quin' => [
+            // 'name' => NULL,
         ],
     ],
 

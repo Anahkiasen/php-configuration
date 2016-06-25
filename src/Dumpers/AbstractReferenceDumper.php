@@ -268,7 +268,8 @@ abstract class AbstractReferenceDumper
             foreach ($children as $childNode) {
                 if ($childNode->getInfo() === 'Prototype') {
                     $childNode->setInfo('');
-                    $this->writeNode($childNode, $depth + 1, true);
+                    $hasChildren = !$childNode instanceof ArrayNode || !$childNode->getChildren();
+                    $this->writeNode($childNode, $depth + 1, $hasChildren);
                 } else {
                     $this->writeNode($childNode, $depth + 1);
                 }

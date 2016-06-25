@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.5 - 2016-06-25
+### Fixed
+- Fix commenting out of prototypes with children
+
 ## 1.0.4 - 2016-06-25
 ### Changed
 - Comment out prototype values by default

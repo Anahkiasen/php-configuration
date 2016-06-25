@@ -2,11 +2,19 @@
     "foobar": {
         "foo": "foo",
         "bar": [],
-        "baz": {},
+        "closures": {
+            "baz": {}
+        },
         "qux": [
             "qux",
             "qux"
         ],
-        "ter": []
+        "ter": [],
+        "qua": {
+            "name": {
+                "foo": "bar"
+            }
+        },
+        "quin": []
     }
 }

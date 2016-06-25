@@ -32,13 +32,17 @@ class DummyConfigurationDefinition implements ConfigurationInterface
                 ->example(['bar', 'bar'])
                 ->prototype('scalar')->end()
             ->end()
-            ->closureNode('baz')
-                ->info('baz')
-                ->defaultValue(function ($foobar) {
-                    foreach (['foo', 'bar'] as $foo) {
-                        return $foobar + $foo;
-                    }
-                })
+            ->arrayNode('closures')
+                ->children()
+                    ->closureNode('baz')
+                        ->info('baz')
+                        ->defaultValue(function ($foobar) {
+                            foreach (['foo', 'bar'] as $foo) {
+                                return $foobar + $foo;
+                            }
+                        })
+                    ->end()
+                ->end()
             ->end()
             ->arrayNode('qux')
                 ->info('qux')
@@ -49,6 +53,20 @@ class DummyConfigurationDefinition implements ConfigurationInterface
                 ->info('ter')
                 ->useAttributeAsKey('name')
                 ->prototype('array')->end()
+            ->end()
+            ->arrayNode('qua')
+                ->info('qua')
+                ->useAttributeAsKey('name')
+                ->prototype('array')
+                    ->children()
+                        ->scalarNode('foo')->defaultValue('bar')->end()
+                    ->end()
+                ->end()
+            ->end()
+            ->arrayNode('quin')
+                ->info('quin')
+                ->useAttributeAsKey('name')
+                ->prototype('scalar')->end()
             ->end();
 
         return $builder;
