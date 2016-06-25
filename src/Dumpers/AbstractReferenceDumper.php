@@ -129,7 +129,7 @@ abstract class AbstractReferenceDumper
             $analyzer = new TokenAnalyzer();
             $this->default = $analyzer->analyze($this->default)['code'];
             $this->default = preg_replace_callback('/(\n +)(.+)/', function ($line) use ($depth) {
-                return substr($line[1], 0, $depth * -4).$line[2];
+                return substr($line[1], 0, ($depth * -4) - 4).$line[2];
             }, $this->default);
         } else {
             $this->default = null;
