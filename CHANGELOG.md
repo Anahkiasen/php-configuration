@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.6 - 2016-06-25
+### Fixed
+- Serialize `NULL` to `null`
+
 ## 1.0.5 - 2016-06-25
 ### Fixed
 - Fix commenting out of prototypes with children

@@ -45,7 +45,7 @@ return [
 
         // quin
         'quin' => [
-            // 'name' => NULL,
+            // 'name' => null,
         ],
     ],
 

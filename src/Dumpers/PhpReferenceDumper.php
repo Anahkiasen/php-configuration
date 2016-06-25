@@ -28,6 +28,11 @@ class PhpReferenceDumper extends AbstractReferenceDumper
      */
     protected function serializeValue($value)
     {
-        return var_export($value, true);
+        $serialized = var_export($value, true);
+        if ($serialized === 'NULL') {
+            $serialized = strtolower($serialized);
+        }
+
+        return $serialized;
     }
 }
